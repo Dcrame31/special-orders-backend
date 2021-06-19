@@ -20,9 +20,15 @@ class CustomersController < ApplicationController
   end
   
   def update
+    if customer.update(customer_params)
+      render json: customer_params
+    else
+      render json: customer.errors, status: :unprocessable_entity
+    end
   end
 
   def destroy
+    customer.destroy
   end
 
   private
