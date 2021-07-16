@@ -1,4 +1,6 @@
 class CustomersController < ApplicationController
+  before_action :set_customer, only: [:show, :update, :destroy]
+
   def index
     customers = Customer.all
 
@@ -6,7 +8,8 @@ class CustomersController < ApplicationController
   end
 
   def show
-    render json: customers
+    customer = Customer.find(params[:id])
+    render json: customer
   end
 
   def create
@@ -38,6 +41,6 @@ class CustomersController < ApplicationController
   end
 
   def customer_params
-    params.require(:customer).permit(:name, :email, :phone, :credit_card, :user_id)
+    params.require(:customer).permit(:id, :name, :email, :phone, :credit_card, :user_id)
   end
 end
